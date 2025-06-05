@@ -121,6 +121,63 @@ GAS-Board/
 - 本番環境で使用する場合は、適切な認証とセキュリティ対策を実装してください
 - 長時間実行される処理は、時間制限を考慮して分割することを検討してください
 
+### Google Apps ScriptのCORS対応について
+
+#### Content-Type: application/jsonを使用する際の問題
+
+Google Apps Script (GAS) のウェブアプリでは、フロントエンドから`Content-Type: application/json`ヘッダーを使用してPOSTリクエストを送信すると、CORSエラーが発生することがあります。これは、GASのCORS処理がこのコンテンツタイプを適切に処理できないためです。
+
+#### 対応方法
+
+1. **フロントエンド側の対応**:
+   - `Content-Type: application/x-www-form-urlencoded`を使用する
+   - JSONデータの代わりに`URLSearchParams`を使用してデータを送信する
+
+   ```javascript
+   // 推奨される方法
+   const formData = new URLSearchParams();
+   formData.append('username', username);
+   formData.append('message', message);
+   
+   fetch(GAS_API_URL, {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/x-www-form-urlencoded',
+       'Accept': 'application/json'
+     },
+     body: formData
+   })
+   ```
+
+2. **バックエンド側の対応**:
+   - `e.postData.contents`からJSONをパースする代わりに、`e.parameter`からパラメータを直接取得する
+
+   ```javascript
+   function doPost(e) {
+     // JSONパースではなく、直接パラメータにアクセス
+     const username = e.parameter.username;
+     const message = e.parameter.message;
+     
+     // 処理を続行...
+   }
+   ```
+
+3. **OPTIONSリクエスト（プリフライト）の処理**:
+   - ブラウザは複雑なリクエスト（カスタムヘッダーや特定のContent-Typeを含む）の前に、OPTIONSリクエストを送信します
+   - GASでは、このOPTIONSリクエストに対して空のレスポンスを返すだけで十分な場合が多いです
+
+   ```javascript
+   function doPost(e) {
+     if (e.method === 'OPTIONS') {
+       return ContentService.createTextOutput('');
+     }
+     
+     // 通常の処理を続行...
+   }
+   ```
+
+これらの対応を行うことで、GASバックエンドとフロントエンド間のCORS関連のエラーを回避できます。
+
 ## 学習目的
 
 このサンプルプロジェクトは以下の技術と概念を学ぶために設計されています：
