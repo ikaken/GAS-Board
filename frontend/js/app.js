@@ -9,7 +9,7 @@
 
 // Google Apps Script WebアプリのURL
 // 注意: デプロイ後に、このURLを自分のウェブアプリのURLに変更する必要があります
-const GAS_API_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
+const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbypE_l1bEF7uQAXucGRR1Ku3Puz_bgZOv6O9kdsPQEZ5wnyXGPDeRTrRMlfXtdnSvnJGA/exec';
 
 // ページの読み込みが完了したら実行される処理
 document.addEventListener('DOMContentLoaded', () => {
