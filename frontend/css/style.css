@@ -1,0 +1,152 @@
+/* スプレッドシート掲示板アプリ スタイルシート */
+
+/* 全体のスタイル */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'メイリオ', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ヘッダー */
+header {
+    background-color: #4285f4;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px 5px 0 0;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 24px;
+}
+
+/* セクションのスタイル */
+section {
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+section h2 {
+    color: #4285f4;
+    margin-bottom: 15px;
+    font-size: 18px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* フォームのスタイル */
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.btn {
+    background-color: #4285f4;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #3367d6;
+}
+
+/* メッセージ一覧のスタイル */
+.message-item {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+}
+
+.message-item:last-child {
+    border-bottom: none;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.username {
+    font-weight: bold;
+    color: #4285f4;
+}
+
+.timestamp {
+    color: #999;
+    font-size: 12px;
+}
+
+.message-content {
+    margin-top: 5px;
+    word-break: break-word;
+}
+
+/* ローディング表示 */
+#loading {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+}
+
+/* フッター */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #999;
+    font-size: 12px;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header {
+        padding: 15px;
+    }
+    
+    header h1 {
+        font-size: 20px;
+    }
+    
+    section {
+        padding: 15px;
+    }
+}
