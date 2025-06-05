@@ -1,43 +1,66 @@
 <!DOCTYPE html>
-<html lang="ja">
+<!--
+  スプレッドシート掲示板アプリ - HTMLファイル
+  学習用コメント付き
+  
+  このファイルは掲示板アプリのフロントエンド部分を構成するHTMLです。
+  シンプルな構造で、新規投稿フォームと投稿一覧表示エリアを持っています。
+-->
+<html lang="ja"><!-- 日本語サイトであることを指定 -->
 <head>
+  <!-- 文字コードの指定 -->
   <meta charset="UTF-8">
+  <!-- レスポンシブデザイン対応のためのビューポート設定 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ページのタイトル -->
   <title>掲示板</title>
+  <!-- CSSファイルの読み込み -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- コンテンツをまとめるコンテナ -->
   <div class="container">
+    <!-- ヘッダー部分 -->
     <header>
       <h1>掲示板</h1>
     </header>
     
+    <!-- 投稿フォームセクション -->
     <section>
       <h2>新規投稿</h2>
+      <!-- フォーム要素 - JavaScriptでsubmitイベントを処理するためにIDを設定 -->
       <form id="message-form">
+        <!-- 名前入力欄 -->
         <div class="form-group">
           <label for="username">名前</label>
           <input type="text" id="username" name="username" required>
         </div>
+        <!-- メッセージ入力欄 -->
         <div class="form-group">
           <label for="message">メッセージ</label>
           <textarea id="message" name="message" rows="3" required></textarea>
         </div>
+        <!-- 送信ボタン -->
         <button type="submit" class="btn">投稿</button>
       </form>
     </section>
     
+    <!-- メッセージ一覧表示セクション -->
     <section>
       <h2>投稿一覧</h2>
+      <!-- ローディング表示用の要素 - JavaScriptで表示/非表示を切り替え -->
       <div id="loading">読み込み中...</div>
+      <!-- メッセージ一覧を表示する要素 - JavaScriptで内容を動的に生成 -->
       <div id="message-list"></div>
     </section>
     
+    <!-- フッター部分 -->
     <footer>
       <p>掲示板アプリ</p>
     </footer>
   </div>
   
+  <!-- JavaScriptファイルの読み込み - bodyの最後で読み込むことでDOM構築後に実行される -->
   <script src="js/app.js"></script>
 </body>
 </html>

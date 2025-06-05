@@ -1,85 +1,104 @@
-/* 最小限のスタイル */
+/**
+ * スプレッドシート掲示板アプリ - CSSスタイル
+ * 学習用コメント付き
+ */
+
+/* 基本スタイル - ページ全体の設定 */
 body {
-  font-family: sans-serif;
-  margin: 0;
-  padding: 10px;
-  background: #f5f5f5;
+  font-family: sans-serif;  /* フォントの指定 */
+  margin: 0;                /* 外部余白を削除 */
+  padding: 10px;            /* 内部余白を設定 */
+  background: #f5f5f5;      /* 背景色を薄いグレーに設定 */
 }
 
+/* コンテンツを中央に配置するコンテナ */
 .container {
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 600px;         /* 最大幅を設定 */
+  margin: 0 auto;           /* 中央揃えにする */
 }
 
+/* ヘッダー部分のスタイル */
 header {
-  background: #4285f4;
-  color: white;
-  padding: 10px;
-  text-align: center;
-  margin-bottom: 10px;
+  background: #4285f4;     /* Googleブルーの背景色 */
+  color: white;            /* 白い文字色 */
+  padding: 10px;           /* 内部余白 */
+  text-align: center;      /* テキストを中央揃え */
+  margin-bottom: 10px;     /* 下部に余白を設定 */
 }
 
+/* セクション（投稿フォームと投稿一覧）のスタイル */
 section {
-  background: white;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
+  background: white;       /* 白い背景色 */
+  padding: 10px;           /* 内部余白 */
+  margin-bottom: 10px;     /* 下部に余白を設定 */
+  border: 1px solid #ddd;  /* 薄いグレーの枠線 */
 }
 
+/* セクション見出しのスタイル */
 h2 {
-  margin-bottom: 10px;
-  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;     /* 下部に余白を設定 */
+  border-bottom: 1px solid #eee; /* 下線を追加 */
 }
 
+/* フォームの各入力グループのスタイル */
 .form-group {
-  margin-bottom: 10px;
+  margin-bottom: 10px;     /* 下部に余白を設定 */
 }
 
+/* ラベル要素のスタイル */
 label {
-  display: block;
+  display: block;          /* ブロック要素として表示（改行される） */
 }
 
+/* 入力フィールドのスタイル */
 input, textarea {
-  width: 100%;
-  padding: 5px;
-  margin-bottom: 5px;
-  border: 1px solid #ddd;
+  width: 100%;             /* 親要素の幅いっぱいに広げる */
+  padding: 5px;            /* 内部余白 */
+  margin-bottom: 5px;      /* 下部に余白を設定 */
+  border: 1px solid #ddd;  /* 薄いグレーの枠線 */
 }
 
+/* 送信ボタンのスタイル */
 .btn {
-  background: #4285f4;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
+  background: #4285f4;     /* Googleブルーの背景色 */
+  color: white;            /* 白い文字色 */
+  border: none;            /* 枠線を削除 */
+  padding: 5px 10px;       /* 内部余白 */
+  cursor: pointer;         /* カーソルをポインターに変更 */
 }
 
+/* 各メッセージアイテムのスタイル */
 .message-item {
-  border-bottom: 1px solid #eee;
-  padding: 10px 0;
+  border-bottom: 1px solid #eee; /* 下線 */
+  padding: 10px 0;          /* 上下の内部余白 */
 }
 
+/* メッセージヘッダー（ユーザー名と日付を含む）のスタイル */
 .message-header {
-  display: flex;
-  justify-content: space-between;
+  display: flex;            /* Flexboxレイアウトを使用 */
+  justify-content: space-between; /* 左右に配置 */
 }
 
+/* ユーザー名のスタイル */
 .username {
-  font-weight: bold;
+  font-weight: bold;        /* 太字にする */
 }
 
+/* タイムスタンプ（日付）のスタイル */
 .timestamp {
-  color: #777;
-  font-size: 12px;
+  color: #777;              /* 文字色をグレーに */
+  font-size: 12px;          /* フォントサイズを小さく */
 }
 
+/* ローディング表示のスタイル */
 #loading {
-  text-align: center;
-  color: #777;
+  text-align: center;       /* 中央揃え */
+  color: #777;              /* 文字色をグレーに */
 }
 
+/* フッターのスタイル */
 footer {
-  text-align: center;
-  color: #777;
-  margin-top: 10px;
+  text-align: center;       /* 中央揃え */
+  color: #777;              /* 文字色をグレーに */
+  margin-top: 10px;         /* 上部の余白 */
 }
