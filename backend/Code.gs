@@ -87,6 +87,15 @@ function getAllMessages() {
     // getMessagesSheet関数を呼び出してメッセージシートを取得
     const sheet = getMessagesSheet();
     
+    // データが存在するか確認（ヘッダー行以外にデータがあるか）
+    if (sheet.getLastRow() <= 1) {
+      // データがない場合は空の配列を返す
+      return {
+        status: "success",
+        messages: []
+      };
+    }
+    
     // データ範囲を取得（ヘッダー行（1行目）を除く、全データを取得）
     // sheet.getLastRow() - 1: ヘッダー行を除いた行数
     // HEADERS.length: 列数（id, username, message, timestampの4列）
