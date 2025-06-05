@@ -36,9 +36,25 @@ const HEADERS = ["id", "username", "message", "timestamp"];
  * @return {Object} JSONレスポンス（メッセージの配列を含む）
  */
 function doGet(e) {
+  // OPTIONSリクエストの場合はCORSプリフライトリクエストとして処理
+  if (e.method === 'OPTIONS') {
+    return ContentService.createTextOutput('')
+      .setMimeType(ContentService.MimeType.TEXT)
+      .setHeader('Access-Control-Allow-Origin', '*')
+      .setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+      .setHeader('Access-Control-Allow-Headers', 'Content-Type')
+      .setHeader('Access-Control-Max-Age', '86400');
+  }
+  
   // getAllMessages関数を呼び出してすべてのメッセージを取得し、
   // handleResponse関数でJSON形式に整形して返す
-  return handleResponse(getAllMessages());
+  const result = getAllMessages();
+  const jsonString = JSON.stringify(result);
+  
+  // ContentServiceを使用してレスポンスを作成し、CORSヘッダーを直接設定
+  return ContentService.createTextOutput(jsonString)
+    .setMimeType(ContentService.MimeType.JSON)
+    .setHeader('Access-Control-Allow-Origin', '*');
 }
 
 /**
@@ -53,24 +69,41 @@ function doGet(e) {
  * @return {Object} JSONレスポンス（成功時は追加したメッセージ、失敗時はエラーメッセージを含む）
  */
 function doPost(e) {
-  // リクエストボディからJSONデータをパース
-  // e.postData.contentsにはクライアントから送信されたJSON文字列が含まれている
-  const params = JSON.parse(e.postData.contents);
+  // OPTIONSリクエストの場合はCORSプリフライトリクエストとして処理
+  if (e.method === 'OPTIONS') {
+    return ContentService.createTextOutput('')
+      .setMimeType(ContentService.MimeType.TEXT)
+      .setHeader('Access-Control-Allow-Origin', '*')
+      .setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
+      .setHeader('Access-Control-Allow-Headers', 'Content-Type')
+      .setHeader('Access-Control-Max-Age', '86400');
+  }
+  
+  // リクエストパラメータからデータを取得
+  // application/x-www-form-urlencoded形式の場合、e.parameterから直接アクセスできる
+  const params = {
+    username: e.parameter.username,
+    message: e.parameter.message
+  };
   
   // 必須パラメータ（ユーザー名とメッセージ）が存在するかチェック
   // いずれかが空の場合はエラーを返す
+  let result;
   if (!params.username || !params.message) {
-    return handleResponse({
+    result = {
       status: "error",
       message: "ユーザー名とメッセージは必須です"
-    });
+    };
+  } else {
+    // addMessage関数を呼び出して新しいメッセージをスプレッドシートに追加
+    result = addMessage(params.username, params.message);
   }
   
-  // addMessage関数を呼び出して新しいメッセージをスプレッドシートに追加
-  const result = addMessage(params.username, params.message);
-  
   // 結果をJSON形式でクライアントに返す
-  return handleResponse(result);
+  const jsonString = JSON.stringify(result);
+  return ContentService.createTextOutput(jsonString)
+    .setMimeType(ContentService.MimeType.JSON)
+    .setHeader('Access-Control-Allow-Origin', '*');
 }
 
 /**
@@ -235,3 +268,5 @@ function handleResponse(data) {
   // これがGASウェブアプリのレスポンスとなる
   return output;
 }
+
+// addCorsHeaders関数は使用しないため削除

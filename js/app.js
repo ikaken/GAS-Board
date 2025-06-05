@@ -88,12 +88,18 @@ document.addEventListener('DOMContentLoaded', () => {
             submitButton.disabled = true;
             
             // Google Apps ScriptのAPIにデータを送信（POSTリクエスト）
+            // CORSエラー回避のためContent-Typeをapplication/x-www-form-urlencodedに変更
+            const params = new URLSearchParams();
+            params.append('username', username);
+            params.append('message', message);
+            
             const response = await fetch(GAS_API_URL, {
                 method: 'POST',  // POSTメソッドを指定
                 headers: {
-                    'Content-Type': 'application/json',  // JSONデータを送ることを指定
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',  // URLエンコードデータを送ることを指定
                 },
-                body: JSON.stringify({ username, message })  // オブジェクトをJSON文字列に変換
+                body: params  // URLSearchParamsオブジェクトを使用
             });
             
             // レスポンスをJSONとしてパース
