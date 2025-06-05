@@ -28,66 +28,43 @@ const HEADERS = ["id", "username", "message", "timestamp"];
  * doGet - GETリクエストを処理する関数
  * すべてのメッセージを取得して返す
  * 
- * Google Apps Scriptのウェブアプリでは、HTTPのGETリクエストを受け取ると
- * 自動的にこの関数が実行されます。フロントエンドからのデータ取得リクエストを
- * 処理するためのエントリーポイントです。
- * 
- * @param {Object} e - リクエストパラメータ（クエリパラメータを含むオブジェクト）
+ * @param {Object} e - リクエストパラメータ
  * @return {Object} JSONレスポンス（メッセージの配列を含む）
  */
 function doGet(e) {
-  // OPTIONSリクエストの場合はCORSプリフライトリクエストとして処理
+  // OPTIONSリクエストの場合は空のレスポンスを返す
   if (e.method === 'OPTIONS') {
-    return ContentService.createTextOutput('')
-      .setMimeType(ContentService.MimeType.TEXT)
-      .setHeader('Access-Control-Allow-Origin', '*')
-      .setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-      .setHeader('Access-Control-Allow-Headers', 'Content-Type')
-      .setHeader('Access-Control-Max-Age', '86400');
+    return ContentService.createTextOutput('');
   }
   
-  // getAllMessages関数を呼び出してすべてのメッセージを取得し、
-  // handleResponse関数でJSON形式に整形して返す
+  // すべてのメッセージを取得
   const result = getAllMessages();
-  const jsonString = JSON.stringify(result);
   
-  // ContentServiceを使用してレスポンスを作成し、CORSヘッダーを直接設定
-  return ContentService.createTextOutput(jsonString)
-    .setMimeType(ContentService.MimeType.JSON)
-    .setHeader('Access-Control-Allow-Origin', '*');
+  // JSON形式でレスポンスを返す
+  return ContentService.createTextOutput(JSON.stringify(result))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 /**
  * doPost - POSTリクエストを処理する関数
  * 新しいメッセージを追加する
  * 
- * Google Apps Scriptのウェブアプリでは、HTTPのPOSTリクエストを受け取ると
- * 自動的にこの関数が実行されます。フロントエンドからの新規メッセージ投稿を
- * 処理するためのエントリーポイントです。
- * 
- * @param {Object} e - リクエストパラメータ（postData.contentsにJSON形式でusernameとmessageを含む）
- * @return {Object} JSONレスポンス（成功時は追加したメッセージ、失敗時はエラーメッセージを含む）
+ * @param {Object} e - リクエストパラメータ
+ * @return {Object} JSONレスポンス
  */
 function doPost(e) {
-  // OPTIONSリクエストの場合はCORSプリフライトリクエストとして処理
+  // OPTIONSリクエストの場合は空のレスポンスを返す
   if (e.method === 'OPTIONS') {
-    return ContentService.createTextOutput('')
-      .setMimeType(ContentService.MimeType.TEXT)
-      .setHeader('Access-Control-Allow-Origin', '*')
-      .setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-      .setHeader('Access-Control-Allow-Headers', 'Content-Type')
-      .setHeader('Access-Control-Max-Age', '86400');
+    return ContentService.createTextOutput('');
   }
   
   // リクエストパラメータからデータを取得
-  // application/x-www-form-urlencoded形式の場合、e.parameterから直接アクセスできる
   const params = {
     username: e.parameter.username,
     message: e.parameter.message
   };
   
-  // 必須パラメータ（ユーザー名とメッセージ）が存在するかチェック
-  // いずれかが空の場合はエラーを返す
+  // 必須パラメータチェック
   let result;
   if (!params.username || !params.message) {
     result = {
@@ -95,15 +72,13 @@ function doPost(e) {
       message: "ユーザー名とメッセージは必須です"
     };
   } else {
-    // addMessage関数を呼び出して新しいメッセージをスプレッドシートに追加
+    // 新しいメッセージを追加
     result = addMessage(params.username, params.message);
   }
   
-  // 結果をJSON形式でクライアントに返す
-  const jsonString = JSON.stringify(result);
-  return ContentService.createTextOutput(jsonString)
-    .setMimeType(ContentService.MimeType.JSON)
-    .setHeader('Access-Control-Allow-Origin', '*');
+  // JSON形式でレスポンスを返す
+  return ContentService.createTextOutput(JSON.stringify(result))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 /**
@@ -269,4 +244,3 @@ function handleResponse(data) {
   return output;
 }
 
-// addCorsHeaders関数は使用しないため削除
