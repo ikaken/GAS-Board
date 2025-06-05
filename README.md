@@ -12,14 +12,13 @@
 
 ```
 GAS-Board/
-├── frontend/              # GitHub Pagesでホストするフロントエンドコード
-│   ├── index.html         # メインHTML
-│   ├── css/               # スタイルシート
-│   │   └── style.css      # メインCSS
-│   └── js/                # JavaScriptコード
-│       └── app.js         # メインアプリケーションロジック
-└── backend/               # Google Apps Script (GAS) コード
-    └── Code.gs            # GASのメインコード
+├── index.html         # メインHTML（GitHubページ用にルートに配置）
+├── css/               # スタイルシートディレクトリ
+│   └── style.css      # メインCSS
+├── js/                # JavaScriptディレクトリ
+│   └── app.js         # メインアプリケーションロジック
+└── backend/           # Google Apps Script (GAS) コード
+    └── Code.gs        # GASのメインコード
 ```
 
 ## セットアップ手順
@@ -62,7 +61,7 @@ GAS-Board/
 1. 以下のGitHubリポジトリをクローンします（リポジトリのURLをここに挿入）
    ```
    git clone ここにリポジトリのURLを挿入
-   cd GAS-Board/frontend
+   cd GAS-Board
    ```
 
 2. `js/app.js` ファイルを開き、`GAS_API_URL` 変数を、バックエンドセットアップでコピーしたウェブアプリのURLに更新します
@@ -85,7 +84,10 @@ GAS-Board/
 #### 方法２：新規にフロントエンドを作成する
 
 1. GitHubで新しいリポジトリを作成します
-2. `frontend/` ディレクトリ内のすべてのファイルをリポジトリにアップロードします
+2. このプロジェクトのルートディレクトリにある以下のファイルとフォルダをリポジトリにアップロードします：
+   - `index.html`
+   - `css/` フォルダとその中の `style.css`
+   - `js/` フォルダとその中の `app.js`
 3. `js/app.js` ファイル内の `GAS_API_URL` 変数を、バックエンドセットアップでコピーしたウェブアプリのURLに更新します
 4. リポジトリの設定から「GitHub Pages」を有効にします（mainブランチのルートディレクトリを選択）
 5. GitHub Pagesが生成するURLにアクセスして、アプリケーションを使用します
