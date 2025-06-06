@@ -5,6 +5,7 @@
 
 // Google Apps Script WebアプリのURL
 // このURLにGET/POSTリクエストを送信してメッセージの取得・投稿を行う
+// 下記のURLをバックエンドセットアップでコピーしたウェブアプリのURLに変更してください
 const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbypE_l1bEF7uQAXucGRR1Ku3Puz_bgZOv6O9kdsPQEZ5wnyXGPDeRTrRMlfXtdnSvnJGA/exec';
 
 // DOMの読み込みが完了したら実行
